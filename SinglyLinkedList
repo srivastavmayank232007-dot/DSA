@@ -1,0 +1,167 @@
+package LinkedList;
+import java.util.*;
+
+class Node{
+    protected int reg_no;
+    protected float mark;
+    protected Node  next;
+}
+public class LinkedList {
+    static Scanner sc = new Scanner(System.in);
+
+    //Creating a LinkedList
+    public static void create(Node start){
+        int ch;
+        Scanner sc = new Scanner(System.in);
+        do{
+            Node temp = new Node();
+            System.out.println("Enter the registration number: ");
+            temp.reg_no= sc.nextInt();
+            System.out.println("Enter the marks: ");
+            temp.mark = sc.nextFloat();
+            temp.next = null;
+            if(start==null){
+                start = temp;
+            }else{
+                temp.next = start;
+                start = temp;
+            }
+            System.out.println("Press 1 to continue else 0 to stop: ");
+            ch = sc.nextInt();
+        }while(ch!=0);
+    }
+
+    //Inserting Node at Beginning
+    public static Node InsBeg(Node start){
+        Node temp = new Node();
+        temp.reg_no= sc.nextInt();
+        temp.mark = sc.nextFloat();
+        temp.next = null;
+        if(start==null){
+            start = temp;
+        }else{
+            temp.next = start;
+            start = temp;
+        }
+        return start;
+    }
+
+    //Inserting Node at End
+    public static Node InsEnd(Node start){
+        Node temp = new Node();
+        temp.reg_no = sc.nextInt();
+        temp.mark = sc.nextFloat();
+        temp.next = null;
+        if(start==null){
+            start = temp;
+        }else{
+            Node p = start;
+            while(p.next!=null){
+                p = p.next;
+            }
+            p.next = temp;
+        }
+        return start;
+    }
+
+    //Inserting Node at any position
+    public static Node InsAny(Node start){
+        Node temp = start;
+        System.out.println("Enter the position: ");
+        int pos = sc.nextInt();
+        for(int i=0; i<pos-1; i++){
+            temp = temp.next;
+        }
+        Node p = new Node();
+        p.reg_no = sc.nextInt();
+        p.mark = sc.nextFloat();
+        p.next = temp.next;
+        temp.next = p;
+        return start;
+    }
+
+    //Deleting the First Node 
+    public static Node DelBeg(Node start){
+        Node temp = start;
+        start = start.next;
+        temp = null;
+        return start;
+    }
+
+    //Deleting the Last Node 
+    public static Node DelEnd(Node start){
+        Node temp = start;
+        while(temp.next.next!= null){
+            temp = temp.next;
+        }
+        temp.next = null;
+        return start;
+    }
+
+    //Deleting Node at any position
+    public static Node DelAny(Node start){
+        System.out.println("Enter the position: ");
+        int pos = sc.nextInt();
+        Node temp = start;
+        for(int i=0 ;i< pos-1; i++){
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+        return start;
+    }
+
+    //Searching the Node and updating the marks 
+    public static void search(Node start){
+        if(start==null){
+            System.out.println("Stack Underflow!");
+            return;
+        }
+        System.out.println("Enter registration number to search: ");
+        int reg = sc.nextInt();
+        Node temp  = start;
+        boolean found = false;
+        while(temp!=null){
+            if(temp.reg_no == reg){
+                found = true;
+                System.out.println("Enter the marks: ");
+                float marks = sc.nextFloat();
+                temp.mark = marks;
+                System.out.println("Marks Updated!");
+                break;
+            }else{
+                temp = temp.next;
+            }
+        }
+        if(!found){
+            System.out.println("Error! Node not found with regNo: "+reg);
+        }
+    }
+
+    //Counting the number Nodes present in LinkedList
+    public static int count(Node start){
+        int len =0;
+        if(start==null){
+            return 0;
+        }
+        Node temp = start;
+        while(temp!=null){
+            len+=1;
+            temp = temp.next;
+        }
+        return len;
+    }
+
+    //Displaying all Nodes of LinkedList
+    public static void display(Node start){
+        if(start==null){
+            System.out.println("Empty stack!");
+            return;
+        }
+        Node temp = start;
+        while(temp!=null){
+            System.out.println(temp.reg_no);
+            System.out.println(temp.mark);
+            temp = temp.next;
+        }
+    }
+}
