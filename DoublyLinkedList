@@ -1,0 +1,160 @@
+public class DoublyLinkedList {
+    static Scanner sc = new Scanner(System.in);
+
+    //Inserting Node at beginning//
+    public static Node insBeg(Node start, Node end){
+        Node temp = new Node();
+        temp.next = start;
+        temp.prev = null;
+        if(start!=null){
+            start.prev = temp;
+        }else{
+            end = temp;
+        }
+        start = temp;
+        return start;
+    }
+
+    //Inserting Node at ending//
+    public static Node insEnd(Node start, Node end){
+        Node temp = new Node();
+        temp.next = null;
+        temp.prev = end;
+        if(end.next!=null){
+            end.next = temp;
+        }else{
+            start = temp;
+        }
+        end = temp;
+        return start;
+    }
+
+    //Inserting Node at given position//
+    public static Node insAny(Node start, Node end){
+        Node p = new Node();
+        System.out.println("Enter the position: ");
+        int pos = sc.nextInt();
+        if(pos==1){
+            p.next = start;
+            p.prev = null;
+            if(start!=null){
+                start.prev = p;
+            }else{
+                end = p;
+            }
+            start = p;
+            return start;
+        }
+        Node temp = start;
+        for(int i=0; i< pos-1 && temp!=null; i++){
+            temp = temp.next;
+        }
+        if(temp==null){
+            System.out.println("Invalid position!");
+            return start;
+        }
+        p.next = temp.next;
+        p.prev = temp;
+        if(temp.next!=null){
+            temp.next.prev = p;
+        }else{
+            end = p;
+        }
+        temp.next = p;
+        return start;
+    }
+
+    //Deleting Node at beginning//
+    public static Node delBeg(Node start, Node end){
+        start = start.next;
+        start.prev = null;
+        return start;
+    }
+
+    //Deleting Node at ending//
+    public static Node delEnd(Node start, Node end){
+        if(end==null){
+            System.out.println("Empty List!");
+            return start;
+        }
+        end = end.prev;
+        if(end!= null){
+            end.next = null;
+        }else{
+            start = null;
+        }
+        return start;
+    }
+
+    //Deleting Node at given position//
+    public static Node delAny(Node start, Node end){
+        System.out.println("Enter the position: ");
+        int pos=  sc.nextInt();
+        if(start==null){
+            System.out.println("Empty list!");
+            return start;
+        }
+        if(pos==1){
+            start = start.next;
+            if(start!= null) {
+                start.prev = null;
+            }else{
+                end = null;
+            }
+            return start;
+        }
+        Node temp = start;
+        for(int i =0; i<pos-1 && temp!= null; i++){
+            temp= temp.next;
+        }
+        if(temp == null){
+            System.out.println("Invalid Position");
+            return start;
+        }
+        if(temp.next!=null){
+            temp.next.prev = temp.prev;
+        }else{
+            end = temp.prev;
+        }
+        if(temp.prev!=null){
+            temp.prev.next = temp.next;
+        }
+        return start;
+    }
+
+    //Display all Nodes of List//
+    public static void display(Node start, Node end){
+        if(start==null){
+            System.out.println("Empty list!");
+            return;
+        }
+        Node temp = start;
+        while(temp!=null){
+            System.out.println(temp.regd_no+" "+ temp.mark);
+            temp= temp.next;
+        }
+    }
+
+    //Searching the Node using some data, and updating it//
+    public static void search(Node start, Node end){
+        int regNo = sc.nextInt();
+        boolean found = false;
+        Node temp = start;
+        while(temp!=null){
+            if(temp.regd_no==regNo){
+                System.out.println("Found!");
+                System.out.println("Enter the marks: ");
+                float marks = sc.nextFloat();
+                temp.mark = marks;
+                found = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if(!found){
+            System.out.println("Record not found!");
+        }
+    }
+
+
+}
